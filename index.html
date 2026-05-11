@@ -1,0 +1,1416 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --navy: #0D1F3C;
+      --navy-mid: #1A3560;
+      --cyan: #0EA5C9;
+      --cyan-light: #E0F4FA;
+      --gray-light: #F6F8FB;
+      --gray-mid: #E8ECF2;
+      --text-body: #4A5568;
+      --text-muted: #8896A8;
+      --white: #FFFFFF;
+      --radius: 12px;
+      --radius-sm: 8px;
+    }
+
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: var(--white);
+      color: var(--navy);
+      overflow-x: hidden;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    section {
+      width: 100%;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* NAV */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--gray-mid);
+      padding: 14px 0;
+    }
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    .logo {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--navy);
+      letter-spacing: -0.5px;
+    }
+
+    .logo span {
+      color: var(--cyan);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 28px;
+      align-items: center;
+    }
+
+    .nav-links a {
+      font-size: 14px;
+      color: var(--text-body);
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: var(--cyan);
+    }
+
+    .nav-cta {
+      background: var(--cyan);
+      color: var(--white) !important;
+      padding: 9px 20px;
+      border-radius: 8px;
+      font-size: 13px !important;
+      font-weight: 600 !important;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: background 0.2s !important;
+    }
+
+    .nav-cta:hover {
+      background: #0891b2 !important;
+      color: var(--white) !important;
+    }
+
+    /* HERO */
+    .hero {
+      background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 60%, #1E4A7A 100%);
+      padding: 100px 0 80px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -60px;
+      right: -60px;
+      width: 400px;
+      height: 400px;
+      border-radius: 50%;
+      background: rgba(14, 165, 201, 0.08);
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: -80px;
+      left: -40px;
+      width: 300px;
+      height: 300px;
+      border-radius: 50%;
+      background: rgba(14, 165, 201, 0.06);
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(14, 165, 201, 0.15);
+      border: 1px solid rgba(14, 165, 201, 0.3);
+      color: #7DD3F0;
+      font-size: 12px;
+      font-weight: 600;
+      padding: 6px 14px;
+      border-radius: 20px;
+      margin-bottom: 20px;
+      letter-spacing: 0.5px;
+    }
+
+    .hero h1 {
+      font-size: 40px;
+      font-weight: 800;
+      color: var(--white);
+      line-height: 1.2;
+      letter-spacing: -1px;
+      margin-bottom: 18px;
+    }
+
+    .hero h1 em {
+      color: var(--cyan);
+      font-style: normal;
+    }
+
+    .hero p {
+      font-size: 16px;
+      color: rgba(255, 255, 255, 0.7);
+      line-height: 1.7;
+      margin-bottom: 36px;
+    }
+
+    .hero-btns {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #25D366;
+      color: var(--white);
+      font-size: 14px;
+      font-weight: 700;
+      padding: 14px 24px;
+      border-radius: 10px;
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.15s;
+    }
+
+    .btn-primary:hover {
+      background: #1ebe5b;
+      transform: translateY(-1px);
+    }
+
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: transparent;
+      color: var(--white);
+      font-size: 14px;
+      font-weight: 600;
+      padding: 14px 24px;
+      border-radius: 10px;
+      border: 1.5px solid rgba(255, 255, 255, 0.3);
+      cursor: pointer;
+      transition: border-color 0.2s, background 0.2s;
+    }
+
+    .btn-secondary:hover {
+      border-color: rgba(255, 255, 255, 0.6);
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .hero-visual {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .hero-card {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: var(--radius);
+      padding: 20px 24px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .hero-card-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 10px;
+      background: rgba(14, 165, 201, 0.2);
+      border: 1px solid rgba(14, 165, 201, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      color: #7DD3F0;
+      font-size: 22px;
+    }
+
+    .hero-card-text p {
+      color: rgba(255, 255, 255, 0.9);
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 3px;
+    }
+
+    .hero-card-text span {
+      color: rgba(255, 255, 255, 0.5);
+      font-size: 12px;
+    }
+
+    .hero-stats {
+      display: flex;
+      gap: 24px;
+      margin-top: 4px;
+    }
+
+    .stat-item {
+      text-align: center;
+    }
+
+    .stat-item .num {
+      font-size: 26px;
+      font-weight: 800;
+      color: var(--white);
+      letter-spacing: -0.5px;
+    }
+
+    .stat-item .lbl {
+      font-size: 11px;
+      color: rgba(255, 255, 255, 0.5);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-top: 2px;
+    }
+
+    /* TRUST */
+    .trust-section {
+      padding: 64px 0;
+      background: var(--white);
+    }
+
+    .section-label {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--cyan);
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      margin-bottom: 10px;
+    }
+
+    .section-title {
+      font-size: 30px;
+      font-weight: 800;
+      color: var(--navy);
+      letter-spacing: -0.5px;
+      line-height: 1.2;
+      margin-bottom: 12px;
+    }
+
+    .section-sub {
+      font-size: 15px;
+      color: var(--text-body);
+      line-height: 1.6;
+      max-width: 560px;
+    }
+
+    .trust-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-top: 48px;
+    }
+
+    .trust-card {
+      padding: 28px 24px;
+      border: 1px solid var(--gray-mid);
+      border-radius: var(--radius);
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .trust-card:hover {
+      border-color: var(--cyan);
+      box-shadow: 0 4px 20px rgba(14, 165, 201, 0.1);
+    }
+
+    .trust-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      background: var(--cyan-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 16px;
+      color: var(--cyan);
+      font-size: 20px;
+    }
+
+    .trust-card h3 {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 8px;
+    }
+
+    .trust-card p {
+      font-size: 13px;
+      color: var(--text-body);
+      line-height: 1.6;
+    }
+
+    /* SERVICES */
+    .services-section {
+      padding: 80px 0;
+      background: var(--gray-light);
+    }
+
+    .services-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 48px;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .services-tabs {
+      display: flex;
+      gap: 8px;
+      background: var(--gray-mid);
+      padding: 4px;
+      border-radius: 10px;
+    }
+
+    .tab-btn {
+      padding: 8px 20px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
+      background: transparent;
+      color: var(--text-body);
+      transition: all 0.2s;
+    }
+
+    .tab-btn.active {
+      background: var(--white);
+      color: var(--navy);
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+
+    .svc-card {
+      background: var(--white);
+      border: 1px solid var(--gray-mid);
+      border-radius: var(--radius);
+      padding: 24px 20px;
+      transition: all 0.2s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .svc-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: var(--cyan);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.25s;
+    }
+
+    .svc-card:hover {
+      border-color: var(--gray-mid);
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+      transform: translateY(-2px);
+    }
+
+    .svc-card:hover::before {
+      transform: scaleX(1);
+    }
+
+    .svc-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 10px;
+      background: var(--cyan-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 16px;
+      color: var(--cyan);
+      font-size: 22px;
+    }
+
+    .svc-card h3 {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 8px;
+    }
+
+    .svc-card p {
+      font-size: 13px;
+      color: var(--text-body);
+      line-height: 1.6;
+    }
+
+    .svc-card .svc-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      margin-top: 14px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--cyan);
+    }
+
+    /* ABOUT */
+    .about-section {
+      padding: 80px 0;
+      background: var(--white);
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: center;
+    }
+
+    .about-image {
+      border-radius: var(--radius);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .about-placeholder {
+      background: linear-gradient(135deg, var(--navy) 0%, #1E4A7A 100%);
+      border-radius: var(--radius);
+      height: 360px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+    }
+
+    .about-placeholder i {
+      font-size: 48px;
+      color: rgba(255, 255, 255, 0.3);
+    }
+
+    .about-placeholder span {
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.4);
+    }
+
+    .about-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--navy);
+      color: var(--white);
+      font-size: 12px;
+      font-weight: 700;
+      padding: 10px 16px;
+      border-radius: var(--radius-sm);
+      position: absolute;
+      bottom: -16px;
+      right: 24px;
+    }
+
+    .about-badge i {
+      color: var(--cyan);
+      font-size: 16px;
+    }
+
+    .about-text .section-sub {
+      max-width: 100%;
+      margin-bottom: 20px;
+    }
+
+    .about-features {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      margin-top: 28px;
+    }
+
+    .about-feat {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+    }
+
+    .feat-dot {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: var(--cyan-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .feat-dot i {
+      font-size: 12px;
+      color: var(--cyan);
+    }
+
+    .about-feat p {
+      font-size: 14px;
+      color: var(--text-body);
+      line-height: 1.6;
+    }
+
+    .about-feat strong {
+      color: var(--navy);
+      font-weight: 700;
+    }
+
+    /* PROCESS */
+    .process-section {
+      padding: 80px 0;
+      background: var(--navy);
+    }
+
+    .process-section .section-title {
+      color: var(--white);
+    }
+
+    .process-section .section-label {
+      color: rgba(14, 165, 201, 0.9);
+    }
+
+    .process-section .section-sub {
+      color: rgba(255, 255, 255, 0.6);
+    }
+
+    .process-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0;
+      margin-top: 48px;
+      position: relative;
+    }
+
+    .process-grid::before {
+      content: '';
+      position: absolute;
+      top: 36px;
+      left: calc(16.6% + 24px);
+      right: calc(16.6% + 24px);
+      height: 1px;
+      background: rgba(14, 165, 201, 0.3);
+      z-index: 0;
+    }
+
+    .process-step {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 0 24px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .step-num {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      background: rgba(14, 165, 201, 0.12);
+      border: 2px solid rgba(14, 165, 201, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 24px;
+      position: relative;
+    }
+
+    .step-num i {
+      font-size: 28px;
+      color: var(--cyan);
+    }
+
+    .step-badge {
+      position: absolute;
+      top: -6px;
+      right: -6px;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: var(--cyan);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      font-weight: 800;
+      color: var(--white);
+    }
+
+    .process-step h3 {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 10px;
+    }
+
+    .process-step p {
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.55);
+      line-height: 1.6;
+    }
+
+    /* TESTIMONIALS */
+    .testi-section {
+      padding: 80px 0;
+      background: var(--gray-light);
+    }
+
+    .testi-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-top: 48px;
+    }
+
+    .testi-card {
+      background: var(--white);
+      border: 1px solid var(--gray-mid);
+      border-radius: var(--radius);
+      padding: 28px 24px;
+    }
+
+    .stars {
+      display: flex;
+      gap: 3px;
+      margin-bottom: 16px;
+    }
+
+    .star {
+      font-size: 14px;
+      color: #F59E0B;
+    }
+
+    .testi-card blockquote {
+      font-size: 14px;
+      color: var(--text-body);
+      line-height: 1.7;
+      margin-bottom: 20px;
+      font-style: italic;
+    }
+
+    .testi-author {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--cyan-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--cyan);
+      flex-shrink: 0;
+    }
+
+    .testi-author .name {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--navy);
+    }
+
+    .testi-author .role {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    /* CTA BANNER */
+    .cta-banner {
+      padding: 80px 0;
+      background: linear-gradient(135deg, #0D1F3C 0%, #0A3060 100%);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-banner::before {
+      content: '';
+      position: absolute;
+      top: -100px;
+      right: -100px;
+      width: 400px;
+      height: 400px;
+      border-radius: 50%;
+      background: rgba(14, 165, 201, 0.07);
+    }
+
+    .cta-inner {
+      text-align: center;
+      position: relative;
+      z-index: 2;
+    }
+
+    .cta-inner h2 {
+      font-size: 34px;
+      font-weight: 800;
+      color: var(--white);
+      letter-spacing: -0.5px;
+      margin-bottom: 14px;
+    }
+
+    .cta-inner p {
+      font-size: 16px;
+      color: rgba(255, 255, 255, 0.65);
+      margin-bottom: 36px;
+    }
+
+    .btn-wa {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: #25D366;
+      color: var(--white);
+      font-size: 15px;
+      font-weight: 700;
+      padding: 16px 32px;
+      border-radius: 12px;
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.15s;
+    }
+
+    .btn-wa:hover {
+      background: #1ebe5b;
+      transform: translateY(-2px);
+    }
+
+    .btn-wa i {
+      font-size: 20px;
+    }
+
+    /* FOOTER */
+    footer {
+      background: #080F1D;
+      padding: 56px 0 24px;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 40px;
+      padding-bottom: 40px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .footer-logo {
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--white);
+      margin-bottom: 12px;
+    }
+
+    .footer-logo span {
+      color: var(--cyan);
+    }
+
+    .footer-desc {
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.45);
+      line-height: 1.7;
+      max-width: 240px;
+      margin-bottom: 20px;
+    }
+
+    .footer-social {
+      display: flex;
+      gap: 10px;
+    }
+
+    .social-btn {
+      width: 34px;
+      height: 34px;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(255, 255, 255, 0.5);
+      font-size: 16px;
+      transition: all 0.2s;
+      cursor: pointer;
+    }
+
+    .social-btn:hover {
+      background: var(--cyan);
+      border-color: var(--cyan);
+      color: var(--white);
+    }
+
+    .footer-col h4 {
+      font-size: 12px;
+      font-weight: 700;
+      color: rgba(255, 255, 255, 0.4);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+    }
+
+    .footer-col ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .footer-col ul li {
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.55);
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      line-height: 1.5;
+    }
+
+    .footer-col ul li i {
+      font-size: 14px;
+      color: var(--cyan);
+      margin-top: 2px;
+      flex-shrink: 0;
+    }
+
+    .footer-bottom {
+      padding-top: 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .footer-bottom p {
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.3);
+    }
+
+    /* FLOATING WA */
+    .wa-float {
+      position: fixed;
+      bottom: 28px;
+      right: 28px;
+      z-index: 999;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: #25D366;
+      color: var(--white);
+      font-size: 13px;
+      font-weight: 700;
+      padding: 13px 20px;
+      border-radius: 50px;
+      box-shadow: 0 6px 30px rgba(37, 211, 102, 0.45);
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+      animation: float-pulse 3s ease-in-out infinite;
+    }
+
+    .wa-float:hover {
+      transform: scale(1.04) translateY(-2px);
+      box-shadow: 0 10px 40px rgba(37, 211, 102, 0.55);
+    }
+
+    .wa-float i {
+      font-size: 22px;
+    }
+
+    @keyframes float-pulse {
+
+      0%,
+      100% {
+        transform: translateY(0)
+      }
+
+      50% {
+        transform: translateY(-4px)
+      }
+    }
+
+    /* DIVIDER */
+    .section-divider {
+      width: 48px;
+      height: 3px;
+      background: var(--cyan);
+      border-radius: 2px;
+      margin: 16px 0 20px;
+    }
+
+    @media (max-width: 900px) {
+      .hero-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+
+      .hero h1 {
+        font-size: 30px;
+      }
+
+      .services-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .trust-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .about-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .testi-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .process-grid {
+        grid-template-columns: 1fr;
+        gap: 32px;
+      }
+
+      .process-grid::before {
+        display: none;
+      }
+    }
+  </style>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+</head>
+
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-inner">
+      <div class="logo">Joni<span>Electro</span></div>
+      <div class="nav-links">
+        <a href="#services-section">Layanan</a>
+        <a href="#about-section">Tentang Kami</a>
+        <a href="#process-section">Proses</a>
+        <i class="fa-brands fa-whatsapp nav-cta"> Whatsapp </i>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-grid">
+        <div class="hero-text">
+          <div class="hero-badge"><i class="ti ti-circle-check" aria-hidden="true"></i> Terpercaya di Jakarta</div>
+          <h1>Jasa <em>Service AC</em> & Instalasi Listrik Profesional di Jakarta</h1>
+          <p>Teknisi profesional untuk rumah, kantor, dan usaha di Jakarta. Pengerjaan rapi, cepat, transparan, dan
+            terpercaya.</p>
+          <div class="hero-btns">
+            <a class="btn-primary" href="https://wa.me/6281314698147"><i class="fa-brands fa-whatsapp"></i>
+              Hubungi WhatsApp</a>
+            <a class="btn-secondary" href="#services-section">Lihat Layanan <i class="fa-solid fa-chevron-down"></i></a>
+          </div>
+          <div class="hero-stats" style="margin-top:40px;padding-top:32px;border-top:1px solid rgba(255,255,255,0.1)">
+            <div class="stat-item">
+              <div class="num">500+</div>
+              <div class="lbl">Clients Served</div>
+            </div>
+            <div class="stat-item">
+              <div class="num">8+</div>
+              <div class="lbl">Years Experience</div>
+            </div>
+            <div class="stat-item">
+              <div class="num">4.9★</div>
+              <div class="lbl">Customer Rating</div>
+            </div>
+          </div>
+        </div>
+        <div class="hero-visual">
+          <div class="hero-card">
+            <div class="hero-card-icon"><i class="fa-regular fa-snowflake"></i></div>
+            <div class="hero-card-text">
+              <p>AC Service & Maintenance</p><span>Cleaning, freon, installation, repair</span>
+            </div>
+          </div>
+          <div class="hero-card">
+            <div class="hero-card-icon"><i class="fa-solid fa-bolt"></i></div>
+            <div class="hero-card-text">
+              <p>Electrical Installation</p><span>Wiring, lighting, troubleshooting</span>
+            </div>
+          </div>
+          <div class="hero-card" style="border-color:rgba(14,165,201,0.35);background:rgba(14,165,201,0.08)">
+            <div class="hero-card-icon" style="background:rgba(14,165,201,0.25)"><i class="fa-regular fa-clock"></i>
+            </div>
+            <div class="hero-card-text">
+              <p style="color:#7DD3F0">Fast Response Guarantee</p><span>On-site within 2–4 hours</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRUST -->
+  <section class="trust-section">
+    <div class="container">
+      <div class="section-label">Kenapa Pilih Kami</div>
+      <div class="section-title">Trusted by Homes, Offices<br>& Businesses in Jakarta</div>
+      <div class="section-divider"></div>
+      <div class="section-sub">We combine skilled technicians, transparent communication, and clean workmanship to
+        deliver results you can rely on.</div>
+      <div class="trust-grid">
+        <div class="trust-card">
+          <div class="trust-icon"><i class="fa-solid fa-user-check"></i></div>
+          <h3>Teknisi Berpengalaman</h3>
+          <p>All our technicians are trained and certified with years of hands-on field experience in AC and electrical
+            systems.</p>
+        </div>
+        <div class="trust-card">
+          <div class="trust-icon"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
+          <h3>Pengerjaan Rapi</h3>
+          <p>We treat your property with care. Clean, tidy work is our standard — not an afterthought.</p>
+        </div>
+        <div class="trust-card">
+          <div class="trust-icon"><i class="fa-solid fa-receipt"></i></div>
+          <h3>Harga Transparan</h3>
+          <p>Tidak ada biaya tersembunyi. Anda akan menerima penawaran yang jelas sebelum pekerjaan dimulai, tanpa
+            kejutan di akhir.</p>
+        </div>
+        <div class="trust-card">
+          <div class="trust-icon"><i class="fa-solid fa-rocket"></i></div>
+          <h3>Respon Cepat</h3>
+          <p>Hubungi kami via WhatsApp dan dapatkan jadwal terkonfirmasi dalam hitungan jam. Kami menghargai waktu Anda.
+          </p>
+        </div>
+        <div class="trust-card">
+          <div class="trust-icon"><i class="fa-solid fa-shield-halved"></i></div>
+          <h3>Garansi Pekerjaan</h3>
+          <p>Setiap pekerjaan dilengkapi dengan garansi layanan purna jual. Jika ada yang kurang tepat, kami akan
+            kembali dan memperbaikinya tanpa biaya tambahan.</p>
+        </div>
+        <div class="trust-card">
+          <div class="trust-icon"><i class="fa-solid fa-location-dot"></i></div>
+          <h3>Cakupan Jakarta</h3>
+          <p>Kami melayani seluruh wilayah Jakarta — dari Selatan hingga Utara, Timur dan Barat — dengan tim yang siap
+            dikirim.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section class="services-section" id="services-section">
+    <div class="container">
+      <div class="services-header">
+        <div>
+          <div class="section-label">Layanan Kami</div>
+          <div class="section-title">Layanan Lengkap untuk<br>Rumah & Kantor Anda</div>
+        </div>
+      </div>
+      <div class="services-grid">
+        <div class="svc-card">
+          <div class="svc-icon"><i class="fa-regular fa-snowflake"></i></div>
+          <h3>Cuci AC</h3>
+          <p>Pembersihan menyeluruh unit indoor & outdoor untuk memulihkan performa pendinginan dan kualitas udara.</p>
+        </div>
+        <div class="svc-card">
+          <div class="svc-icon"><i class="fa-solid fa-temperature-half"></i></div>
+          <h3>Isi Freon</h3>
+          <p>Pengisian ulang refrigeran dengan freon berkualitas untuk mengembalikan performa pendinginan AC Anda
+            seperti baru.</p>
+        </div>
+        <div class="svc-card">
+          <div class="svc-icon"><i class="fa-solid fa-screwdriver-wrench"></i></div>
+          <h3>Perbaikan AC</h3>
+          <p>Diagnosis dan perbaikan masalah AC apa pun — dari masalah kompresor hingga kerusakan remote atau saluran
+            pembuangan.</p>
+        </div>
+        <div class="svc-card">
+          <div class="svc-icon"><i class="fa-solid fa-desktop"></i></div>
+          <h3>Instalasi AC</h3>
+          <p>Instalasi profesional unit AC baru, termasuk bracket, pipa, dan koneksi listrik.</p>
+        </div>
+        <div class="svc-card">
+          <div class="svc-icon"><i class="fa-solid fa-plug"></i></div>
+          <h3>Instalasi Listrik Rumah</h3>
+          <p>Instalasi listrik rumah yang lengkap — dari panel listrik hingga stop kontak dan saklar di dinding.</p>
+        </div>
+        <div class="svc-card">
+          <div class="svc-icon"><i class="fa-regular fa-lightbulb"></i></div>
+          <h3>Pemasangan Lampu</h3>
+          <p>Lampu plafon, downlight, LED strip, dan pencahayaan outdoor — dipasang dengan rapi dan aman.</p>
+        </div>
+        <div class="svc-card">
+          <div class="svc-icon"><i class="fa-solid fa-bolt"></i></div>
+          <h3>Electrical Repair</h3>
+          <p>Perbaikan cepat untuk pemutus arus yang trip, stopkontak rusak, kerusakan kabel, dan gangguan listrik
+            lainnya.</p>
+        </div>
+        <div class="svc-card">
+          <div class="svc-icon"><i class="fa-solid fa-magnifying-glass"></i></div>
+          <h3>Diagnosis Listrik</h3>
+          <p>Diagnosis ahli untuk masalah listrik berulang, kelebihan beban, dan pemadaman misterius di properti Anda.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="about-section" id="about-section">
+    <div class="container">
+      <div class="about-grid">
+        <div class="about-image" style="position:relative">
+          <div class="about-placeholder">
+            <i class="fa-solid fa-users"></i>
+            <span>Professional Technician Team</span>
+          </div>
+          <div class="about-badge"><i class="fa-solid fa-star"></i> Trusted since 2016</div>
+        </div>
+        <div class="about-text">
+          <div class="section-label">Tentang Kami</div>
+          <div class="section-title">Dibangun dengan Kepercayaan,<br>Dikerjakan dengan Profesional</div>
+          <div class="section-divider"></div>
+          <p class="section-sub">Joni Electro didirikan atas satu keyakinan: layanan teknis di Jakarta harus
+            <strong>terpercaya, transparan, dan profesional</strong>. Kami tidak hanya memperbaiki mesin — kami
+            membangun kepercayaan jangka panjang dengan setiap rumah dan bisnis yang kami layani.
+          </p>
+          <p class="section-sub" style="margin-top:12px">Tim teknisi bersertifikat kami membawa presisi, ketepatan
+            waktu, dan komitmen terhadap pengerjaan yang bersih di setiap pekerjaan — baik itu pembersihan AC sederhana
+            atau proyek pengkabelan ulang rumah lengkap.</p>
+          <div class="about-features">
+            <div class="about-feat">
+              <div class="feat-dot"><i class="fa-solid fa-check"></i></div>
+              <p><strong>Pendekatan berbasis kualitas</strong> — Kami tidak pernah berkompromi, bahkan untuk pekerjaan
+                kecil sekalipun.</p>
+            </div>
+            <div class="about-feat">
+              <div class="feat-dot"><i class="fa-solid fa-check"></i></div>
+              <p><strong>Kepuasan pelanggan</strong> — Kami tidak menyelesaikan pekerjaan sampai Anda benar-benar puas.
+              </p>
+            </div>
+            <div class="about-feat">
+              <div class="feat-dot"><i class="fa-solid fa-check"></i></div>
+              <p><strong>Lengkap dan siap</strong> — Teknisi kami tiba dengan peralatan berguna profesional dan suku
+                cadang pengganti.</p>
+            </div>
+            <div class="about-feat">
+              <div class="feat-dot"><i class="fa-solid fa-check"></i></div>
+              <p><strong>Layanan yang menghormati</strong> — Tepat waktu, berseragam, dan menghormati ruang Anda.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESS -->
+  <section class="process-section" id="process-section">
+    <div class="container">
+      <div style="text-align:center;margin-bottom:8px">
+        <div class="section-label">Cara Kerja Kami</div>
+        <div class="section-title" style="color:var(--white)">Mudah. Cepat. Beres.</div>
+        <div class="section-divider" style="margin:16px auto 0"></div>
+        <p class="section-sub"
+          style="margin-top:16px;margin-left:auto;margin-right:auto;text-align:center;max-width:480px">Memperbaiki
+          masalah AC atau listrik Anda itu mudah — tiga langkah sederhana dan selesai.</p>
+      </div>
+      <div class="process-grid">
+        <div class="process-step">
+          <div class="step-num"><i class="fa-brands fa-whatsapp"></i>
+            <div class="step-badge">1</div>
+          </div>
+          <h3>Hubungi Kami</h3>
+          <p>Kirim pesan WhatsApp kepada kami yang menjelaskan masalahnya. Kami akan merespons dengan cepat dan
+            menjadwalkan waktu yang nyaman untuk Anda.</p>
+        </div>
+        <div class="process-step">
+          <div class="step-num"><i class="fa-solid fa-clipboard-check"></i>
+            <div class="step-badge">2</div>
+          </div>
+          <h3>Survey & Pengerjaan</h3>
+          <p>Teknisi kami tiba tepat waktu, memeriksa masalahnya, memberikan penawaran yang transparan, kemudian mulai
+            bekerja secara profesional.</p>
+        </div>
+        <div class="process-step">
+          <div class="step-num"><i class="fa-solid fa-circle-check"></i>
+            <div class="step-badge">3</div>
+          </div>
+          <h3>Masalah Selesai</h3>
+          <p>AC atau sistem listrik Anda sudah diperbaiki dan diuji sepenuhnya. Kami membersihkan dan meninggalkan ruang
+            Anda dalam kondisi sempurna seperti semula.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="testi-section">
+    <div class="container">
+      <div style="text-align:center">
+        <div class="section-label">Testimoni Pelanggan</div>
+        <div class="section-title">What Our Customers Say</div>
+        <div class="section-divider" style="margin:16px auto 0"></div>
+      </div>
+      <div class="testi-grid">
+        <div class="testi-card">
+          <div class="stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span
+              class="star">★</span><span class="star">★</span></div>
+          <blockquote>"Teknisinya tiba tepat waktu dan membersihkan AC kami dengan sangat menyeluruh — perbedaannya
+            langsung terasa. Harganya transparan tanpa biaya tersembunyi. Pasti akan menghubungi lagi."</blockquote>
+          <div class="testi-author">
+            <div class="avatar">RW</div>
+            <div>
+              <div class="name">Rizky Wibowo</div>
+              <div class="role">Homeowner, South Jakarta</div>
+            </div>
+          </div>
+        </div>
+        <div class="testi-card">
+          <div class="stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span
+              class="star">★</span><span class="star">★</span></div>
+          <blockquote>"Kami mengalami lampu berkedip dan pemutus arus yang terus trip selama berminggu-minggu.
+            Joni Electro mendiagnosis dan memperbaiki semuanya dalam satu kunjungan. Pekerjaan yang sangat profesional
+            dan rapi."</blockquote>
+          <div class="testi-author">
+            <div class="avatar">SP</div>
+            <div>
+              <div class="name">Sari Pertiwi</div>
+              <div class="role">Office Manager, Central Jakarta</div>
+            </div>
+          </div>
+        </div>
+        <div class="testi-card">
+          <div class="stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span
+              class="star">★</span><span class="star">★</span></div>
+          <blockquote>"Kami memasang 3 unit AC baru di toko kami dan memperbarui kabelnya. Tim mereka sangat
+            profesional, efisien, dan menyelesaikan pekerjaan lebih cepat dari jadwal. Sangat kami rekomendasikan untuk
+            bisnis!"</blockquote>
+          <div class="testi-author">
+            <div class="avatar">DF</div>
+            <div>
+              <div class="name">Dino Firmansyah</div>
+              <div class="role">Small Business Owner, East Jakarta</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA BANNER -->
+  <section class="cta-banner">
+    <div class="container">
+      <div class="cta-inner">
+        <div class="section-label" style="margin-bottom:12px;color:rgba(14,165,201,0.9)">Hubungi Kami Sekarang</div>
+        <h2>Butuh Teknisi Terpercaya Hari Ini?</h2>
+        <p>Jangan biarkan AC atau masalah listrik menunggu. Kami siap — cukup kirim pesan.</p>
+        <a class="btn-wa" href="https://wa.me/6281314698147"><i class="fa-brands fa-whatsapp"></i> Chat WhatsApp</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <div class="footer-logo">Teknika<span>Jakarta</span></div>
+          <div class="footer-desc">Layanan AC profesional dan instalasi listrik di seluruh Jakarta. Dipercaya oleh
+            rumah, kantor, dan bisnis sejak 2016.</div>
+        </div>
+        <div class="footer-col">
+          <h4>Layanan</h4>
+          <ul>
+            <li>Cuci AC & Isi Freon</li>
+            <li>Perbaikan & Instalasi AC</li>
+            <li>Instalasi Listrik</li>
+            <li>Pemasangan Lampu</li>
+            <li>Diagnosis Listrik</li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Area Layanan</h4>
+          <ul>
+            <li>Jakarta Selatan</li>
+            <li>Jakarta Utara</li>
+            <li>Jakarta Timur</li>
+            <li>Jakarta Barat</li>
+            <li>Jakarta Pusat</li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Kontak</h4>
+          <ul>
+            <li><i class="fa-brands fa-whatsapp"></i> +62 813-1469-8147</li>
+            <li><i class="fa-regular fa-clock"></i> Senin–Sabtu, 08.00–20.00</li>
+            <li><i class="fa-solid fa-location-dot"></i> Melayani seluruh Jakarta</li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2025 Joni Electro. All rights reserved.</p>
+        <p>Jasa AC & Elektrikal Profesional Jakarta</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- FLOATING WA BUTTON -->
+  <a class="wa-float" role="link" aria-label="Chat via WhatsApp" href="https://wa.me/6281314698147">
+    <i class="fa-brands fa-whatsapp"></i>
+    <span>Chat WhatsApp</span>
+  </a>
+
+</body>
+
+</html>
